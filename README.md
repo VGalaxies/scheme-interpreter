@@ -68,12 +68,23 @@ x
 scm> ((define x (+ x 1)) 2)
 # Error: str is not callable: x
 scm> x
-2 (1)
+2 (shoule be 1)
 ```
 
 ## Problem 5
 
 Implement the `quote` special form.
 
-Just return **first** of expr.
+Just return **first** of expression.
 
+## Problem 6
+
+Implement `eval_all` for the `begin` special form.
+
+- evaluating all sub-expressions in order
+- the value of the final sub-expression is return value
+
+note:
+
+- expressions maybe nil
+- expressions should be immutable

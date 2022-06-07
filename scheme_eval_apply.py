@@ -102,7 +102,15 @@ def eval_all(expressions, env):
     2
     """
     # BEGIN PROBLEM 6
-    return scheme_eval(expressions.first, env)  # replace this with lines of your own code
+    assert scheme_listp(expressions)
+    if expressions == nil:
+        return None
+
+    expr_cloned = Pair(expressions.first, expressions.rest)
+    while expr_cloned.rest != nil:
+        scheme_eval(expr_cloned.first, env)
+        expr_cloned = expr_cloned.rest
+    return scheme_eval(expr_cloned.first, env)
     # END PROBLEM 6
 
 
