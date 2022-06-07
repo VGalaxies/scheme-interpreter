@@ -20,13 +20,15 @@ python3 ok -q xxx -u
 python3 ok -q xxx
 ```
 
-## Problem 1
+## Note
+
+### Problem 1
 
 Implement the `define` and `lookup` methods of the Frame class.
 
 Use **mapping** to simulate the frame.
 
-## Problem 2
+### Problem 2
 
 Implement `scheme_apply` BuiltinProcedure.
 
@@ -34,7 +36,7 @@ Convert args from **pair** representation to **list** representation.
 
 Append *env* if exists.
 
-## Problem 3
+### Problem 3
 
 Implement `scheme_eval` builtin call expression.
 
@@ -54,7 +56,7 @@ two forms of `expr.first`:
 
 3. Apply the procedure on the evaluated operands.
 
-## Problem 4
+### Problem 4
 
 Implement the `define` special form like `(define a (+ 2 3))`.
 
@@ -71,13 +73,13 @@ scm> x
 2 (shoule be 1)
 ```
 
-## Problem 5
+### Problem 5
 
 Implement the `quote` special form.
 
 Just return **first** of expression.
 
-## Problem 6
+### Problem 6
 
 Implement `eval_all` for the `begin` special form.
 
@@ -89,7 +91,7 @@ note:
 - expressions maybe nil
 - expressions should be immutable
 
-## Problem 7
+### Problem 7
 
 Implement the `do_lambda_form` function.
 
@@ -101,16 +103,23 @@ ok crashed again...
 NameError: name 'do_lambda_form' is not define
 ```
 
-## Problem 8
+### Problem 8
 
 Implement the `make_child_frame` method.
 
 - `parent = self`
 - `bindings[formal] = val`
 
-## Problem 9
+### Problem 9
 
 Implement `scheme_apply` LambdaProcedure.
 
 - new frame should be a child of the frame in which the lambda is defined
-- call `scheme_eval` with env to get `arg -> val`
+- call `scheme_eval` with `env` to get `arg -> val`
+
+### Problem 10
+
+Implement the `define` special form like `(define (f x) (* x 2))`.
+
+- Convert to `(define f (lambda (x) (* x 2)))`. 
+- Create `LambdaProcedure` and bind the symbol to it.
