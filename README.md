@@ -46,6 +46,7 @@ two forms of `expr.first`:
   - may return `BuiltinProcedure`
 - pair, e.g. `+`
   - scan `scheme_builtins.BUILTINS` to find the procedure
+  - can be simplified to `env.lookup`, note `eval` not in `scheme_builtins.BUILTINS`
 
 2. Evaluate all the operands.
 
@@ -69,3 +70,10 @@ scm> ((define x (+ x 1)) 2)
 scm> x
 2 (1)
 ```
+
+## Problem 5
+
+Implement the `quote` special form.
+
+Just return **first** of expr.
+
