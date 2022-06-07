@@ -47,7 +47,7 @@ def scheme_eval(expr, env, _=None):  # Optional third argument is ignored
         else:
             rest_cloned = nil
 
-        if isinstance(first_cloned, BuiltinProcedure):  # print-then-return
+        if isinstance(first_cloned, Procedure):  # print-then-return
             return scheme_apply(first_cloned, rest_cloned, env)
 
         return scheme_apply(env.lookup(first_cloned), rest_cloned, env)
@@ -77,6 +77,16 @@ def scheme_apply(procedure, args, env):
     elif isinstance(procedure, LambdaProcedure):
         # BEGIN PROBLEM 9
         "*** YOUR CODE HERE ***"
+        reversed_vals = nil
+        reversed_formals = nil
+        formals = Pair(procedure.formals.first, procedure.formals.rest)
+        for _ in range(len(formals)):
+            reversed_formals = Pair(formals.first, reversed_formals)
+            reversed_vals = Pair(scheme_eval(args.first, env), reversed_vals)
+            formals = formals.rest
+            args = args.rest
+        child_frame = procedure.env.make_child_frame(reversed_formals, reversed_vals)
+        return eval_all(procedure.body, child_frame)
         # END PROBLEM 9
     elif isinstance(procedure, MuProcedure):
         # BEGIN PROBLEM 11

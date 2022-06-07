@@ -105,5 +105,12 @@ NameError: name 'do_lambda_form' is not define
 
 Implement the `make_child_frame` method.
 
-- construct `Frame`
-- formal -> val
+- `parent = self`
+- `bindings[formal] = val`
+
+## Problem 9
+
+Implement `scheme_apply` LambdaProcedure.
+
+- new frame should be a child of the frame in which the lambda is defined
+- call `scheme_eval` with env to get `arg -> val`

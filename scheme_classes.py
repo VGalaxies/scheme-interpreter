@@ -62,7 +62,7 @@ class Frame:
         # BEGIN PROBLEM 8
         "*** YOUR CODE HERE ***"
         child = Frame(self)
-        for index in range(len(formals)):
+        for _ in range(len(formals)):
             child.define(formals.first, vals.first)
             formals = formals.rest  # mutable
             vals = vals.rest
