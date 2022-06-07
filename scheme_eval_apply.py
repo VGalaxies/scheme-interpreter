@@ -6,6 +6,8 @@ from scheme_utils import *
 from ucb import main, trace
 
 import scheme_forms
+import scheme_builtins
+import functools
 
 ##############
 # Eval/Apply #
@@ -36,6 +38,25 @@ def scheme_eval(expr, env, _=None):  # Optional third argument is ignored
     else:
         # BEGIN PROBLEM 3
         "*** YOUR CODE HERE ***"
+        if isinstance(first, Pair):
+            first_cloned = scheme_eval(first, env)
+        else:
+            first_cloned = first
+
+        if rest != nil:
+            rest_cloned = rest.map(functools.partial(scheme_eval, env=env))
+        else:
+            rest_cloned = nil
+
+        if isinstance(first_cloned, BuiltinProcedure):  # print-then-return
+            return scheme_apply(first_cloned, rest_cloned, env)
+
+        for builtin in scheme_builtins.BUILTINS:
+            if first_cloned in builtin:  # (name, py_func, names[0], expect_env)
+                procedure = BuiltinProcedure(builtin[1], builtin[3])
+                return scheme_apply(procedure, rest_cloned, env)
+
+        raise SchemeError('unknown builtin')
         # END PROBLEM 3
 
 
