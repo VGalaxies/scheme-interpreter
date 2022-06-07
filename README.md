@@ -60,7 +60,7 @@ Implement the `define` special form like `(define a (+ 2 3))`.
 
 Simply `scheme_eval` the **rest** and `define` for **first**.
 
-Conflict result caused failed test case:
+Cok crashed...
 
 ```
 scm> (define x 0)
@@ -88,3 +88,15 @@ note:
 
 - expressions maybe nil
 - expressions should be immutable
+
+## Problem 7
+
+Implement the `do_lambda_form` function.
+
+Just construct the `LambdaProcedure`.
+
+ok crashed again...
+
+```
+NameError: name 'do_lambda_form' is not define
+```

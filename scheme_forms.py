@@ -90,10 +90,11 @@ def do_lambda_form(expressions, env):
     LambdaProcedure(Pair('x', nil), Pair(Pair('+', Pair('x', Pair(2, nil))), nil), <Global Frame>)
     """
     validate_form(expressions, 2)
-    formals = expressions.first
+    formals, body = expressions.first, expressions.rest
     validate_formals(formals)
     # BEGIN PROBLEM 7
     "*** YOUR CODE HERE ***"
+    return LambdaProcedure(formals, body, env)
     # END PROBLEM 7
 
 
