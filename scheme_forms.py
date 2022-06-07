@@ -252,10 +252,11 @@ def do_unquote(expressions, env):
 def do_mu_form(expressions, env):
     """Evaluate a mu form."""
     validate_form(expressions, 2)
-    formals = expressions.first
+    formals, body = expressions.first, expressions.rest
     validate_formals(formals)
     # BEGIN PROBLEM 11
     "*** YOUR CODE HERE ***"
+    return MuProcedure(formals, body)  # env unused
     # END PROBLEM 11
 
 

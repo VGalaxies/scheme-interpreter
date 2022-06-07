@@ -123,3 +123,21 @@ Implement the `define` special form like `(define (f x) (* x 2))`.
 
 - Convert to `(define f (lambda (x) (* x 2)))`. 
 - Create `LambdaProcedure` and bind the symbol to it.
+
+### Problem 11
+
+Implement `do_mu_form` and `scheme_apply` MuProcedure.
+
+- lexical scoping: the parent of the new call frame is the environment in which the procedure was **defined**
+- dynamic scoping: the parent of the new call frame is the environment in which the call expression was **evaluated**
+
+dynamic scoping example:
+
+```
+scm> (define f (mu () (* a b)))
+f
+scm> (define g (lambda () (define a 4) (define b 5) (f)))
+g
+scm> (g)
+20
+```

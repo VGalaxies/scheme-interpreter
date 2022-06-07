@@ -91,6 +91,16 @@ def scheme_apply(procedure, args, env):
     elif isinstance(procedure, MuProcedure):
         # BEGIN PROBLEM 11
         "*** YOUR CODE HERE ***"
+        reversed_vals = nil
+        reversed_formals = nil
+        formals = Pair(procedure.formals.first, procedure.formals.rest)
+        for _ in range(len(formals)):
+            reversed_formals = Pair(formals.first, reversed_formals)
+            reversed_vals = Pair(scheme_eval(args.first, env), reversed_vals)
+            formals = formals.rest
+            args = args.rest
+        child_frame = env.make_child_frame(reversed_formals, reversed_vals)  # note env
+        return eval_all(procedure.body, child_frame)
         # END PROBLEM 11
     else:
         assert False, "Unexpected procedure: {}".format(procedure)
