@@ -100,3 +100,10 @@ ok crashed again...
 ```
 NameError: name 'do_lambda_form' is not define
 ```
+
+## Problem 8
+
+Implement the `make_child_frame` method.
+
+- construct `Frame`
+- formal -> val
