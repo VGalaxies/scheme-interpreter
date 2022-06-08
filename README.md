@@ -205,8 +205,8 @@ Implement `let-to-lambda`  in *questions.scm*.
 ```
 
 - make use of `append`
-- note the structure
-- recursion is everywhere
+- note the structure of syntax
+- remember recursion
 
 ### Optional 2
 
@@ -222,6 +222,6 @@ Implement `define-macro`.
 
 ## Local interpreter
 
-A Scheme Interpreter written by **Scheme** in *local.scm*.
+A Scheme interpreter written by **Scheme** in *local.scm*.
 
 > source: The Little Schemer
