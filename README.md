@@ -172,3 +172,14 @@ ok crashed again...
 ```
 NameError: name 'make_let_frame' is not defined
 ```
+
+### Problem 15 and 16
+
+some simple Scheme procedure
+
+### Problem 17
+
+optimize tail recursion
+
+- `do_if_form`
+- `eval_all`

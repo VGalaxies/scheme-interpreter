@@ -130,7 +130,7 @@ def eval_all(expressions, env):
     while expr_cloned.rest != nil:
         scheme_eval(expr_cloned.first, env)
         expr_cloned = expr_cloned.rest
-    return scheme_eval(expr_cloned.first, env)
+    return scheme_eval(expr_cloned.first, env, True)
     # END PROBLEM 6
 
 
@@ -169,6 +169,9 @@ def optimize_tail_calls(original_scheme_eval):
         result = Unevaluated(expr, env)
         # BEGIN PROBLEM EC
         "*** YOUR CODE HERE ***"
+        while isinstance(result, Unevaluated):
+            result = original_scheme_eval(result.expr, result.env)
+        return result
         # END PROBLEM EC
     return optimized_eval
 
@@ -176,4 +179,4 @@ def optimize_tail_calls(original_scheme_eval):
 ################################################################
 # Uncomment the following line to apply tail call optimization #
 ################################################################
-# scheme_eval = optimize_tail_calls(scheme_eval)
+scheme_eval = optimize_tail_calls(scheme_eval)
