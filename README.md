@@ -223,3 +223,5 @@ Implement `define-macro`.
 ## Local interpreter
 
 A Scheme Interpreter written by **Scheme** in *local.scm*.
+
+> source: The Little Schemer
