@@ -144,9 +144,16 @@ scm> (g)
 
 ### Problem 12
 
-Implement `do_and_form` and `do_or_form`
+Implement `do_and_form` and `do_or_form`.
 
 - evaluate each sub-expression from left to right
 - if any of these is a false (`and`) / true (`or`) value, return that value
 - otherwise, return the value of the last sub-expression
 - if there are no sub-expressions, evaluates to #t (`and`) / #f (`or`)
+
+### Problem 13
+
+Implement `do_cond_form`.
+
+Just `eval_all`.
+
