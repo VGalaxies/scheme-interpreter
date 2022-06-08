@@ -64,7 +64,7 @@ Implement the `define` special form like `(define a (+ 2 3))`.
 
 Simply `scheme_eval` the **rest** and `define` for **first**.
 
-Cok crashed...
+ok crashed...
 
 ```
 scm> (define x 0)
