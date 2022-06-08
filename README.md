@@ -157,3 +157,18 @@ Implement `do_cond_form`.
 
 Just `eval_all`.
 
+### Problem 14
+
+Implement `make_let_frame` for `do_let_form`.
+
+- `validate_form`
+  - target `(symbol expr)` with length **2**
+  - `expr` with length **1**
+- `validate_formals`
+  - check duplicate symbol
+
+ok crashed again...
+
+```
+NameError: name 'make_let_frame' is not defined
+```

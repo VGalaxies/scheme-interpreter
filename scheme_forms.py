@@ -225,6 +225,15 @@ def make_let_frame(bindings, env):
     names = values = nil
     # BEGIN PROBLEM 14
     "*** YOUR CODE HERE ***"
+    while bindings != nil:
+        target = bindings.first
+        validate_form(target, 2, 2)
+        symbol, expr = target.first, target.rest
+        validate_form(expr, 1, 1)
+        names = Pair(symbol, names)
+        values = Pair(scheme_eval(expr.first, env), values)
+        bindings = bindings.rest
+    validate_formals(names)
     # END PROBLEM 14
     return env.make_child_frame(names, values)
 
