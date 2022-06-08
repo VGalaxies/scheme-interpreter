@@ -205,3 +205,16 @@ Implement `let-to-lambda`  in *questions.scm*.
 - make use of `append`
 - note the structure
 - recursion is everywhere
+
+### Optional 2
+
+Implement `define-macro`.
+
+- like `#define` in C
+- implement `do_define_macro` like `do_define_form`
+- modify `scheme_eval`
+  - evaluate operator, if `MacroProcedure`, then do not evaluate operands
+  - call `scheme_apply` to get the target expr
+- modify `scheme_apply`
+  - if `MacroProcedure`, then do not evaluate `args`
+  - remove `eval_all` tail context

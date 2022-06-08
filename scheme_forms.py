@@ -249,6 +249,17 @@ def do_define_macro(expressions, env):
     """
     # BEGIN PROBLEM OPTIONAL_2
     "*** YOUR CODE HERE ***"
+    validate_form(expressions, 2)  # Checks that expressions is a list of length at least 2
+    signature = expressions.first
+    if isinstance(signature, Pair) and scheme_symbolp(signature.first):
+        # defining a named procedure e.g. (define-macro (f x y) (+ x y))
+        symbol, formals = signature.first, signature.rest
+        body = expressions.rest
+        env.define(symbol, MacroProcedure(formals, body, env))
+        return symbol
+    else:
+        bad_signature = signature.first if isinstance(signature, Pair) else signature
+        raise SchemeError('non-symbol: {0}'.format(bad_signature))
     # END PROBLEM OPTIONAL_2
 
 

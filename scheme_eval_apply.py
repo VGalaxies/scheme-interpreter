@@ -39,18 +39,24 @@ def scheme_eval(expr, env, _=None):  # Optional third argument is ignored
         "*** YOUR CODE HERE ***"
         if isinstance(first, Pair):  # (print-then-return 1 +)
             first_cloned = scheme_eval(first, env)
-        else:  #
+        else:
             first_cloned = first
 
-        if rest != nil:  # str, maybe more check
-            rest_cloned = rest.map(functools.partial(scheme_eval, env=env))
-        else:
-            rest_cloned = nil
-
+        eval_operands = True
         if isinstance(first_cloned, Procedure):  # print-then-return
-            return scheme_apply(first_cloned, rest_cloned, env)
+            procedure = first_cloned
+        else:
+            procedure = env.lookup(first_cloned)
+            if isinstance(procedure, MacroProcedure):
+                eval_operands = False
 
-        return scheme_apply(env.lookup(first_cloned), rest_cloned, env)
+        if eval_operands:
+            rest_cloned = rest.map(functools.partial(scheme_eval, env=env))
+            return scheme_apply(procedure, rest_cloned, env)
+        else:
+            rest_cloned = rest
+            target_expr = scheme_apply(procedure, rest_cloned, env)
+            return scheme_eval(target_expr, env)  # eval the target expr
         # END PROBLEM 3
 
 
@@ -77,17 +83,29 @@ def scheme_apply(procedure, args, env):
     elif isinstance(procedure, LambdaProcedure):
         # BEGIN PROBLEM 9
         "*** YOUR CODE HERE ***"
-        reversed_vals = nil
-        reversed_formals = nil
-        formals = Pair(procedure.formals.first, procedure.formals.rest)
-        for _ in range(len(formals)):
-            reversed_formals = Pair(formals.first, reversed_formals)
-            reversed_vals = Pair(scheme_eval(args.first, env), reversed_vals)
-            formals = formals.rest
-            args = args.rest
-        child_frame = procedure.env.make_child_frame(reversed_formals, reversed_vals)
-        return eval_all(procedure.body, child_frame)
+        if not isinstance(procedure, MacroProcedure):
+            reversed_vals = nil
+            reversed_formals = nil
+            formals = Pair(procedure.formals.first, procedure.formals.rest)
+            for _ in range(len(formals)):
+                reversed_formals = Pair(formals.first, reversed_formals)
+                reversed_vals = Pair(scheme_eval(args.first, env), reversed_vals)
+                formals = formals.rest
+                args = args.rest
+            child_frame = procedure.env.make_child_frame(reversed_formals, reversed_vals)
+            return eval_all(procedure.body, child_frame)
         # END PROBLEM 9
+        else:
+            reversed_vals = nil
+            reversed_formals = nil
+            formals = Pair(procedure.formals.first, procedure.formals.rest)
+            for _ in range(len(formals)):
+                reversed_formals = Pair(formals.first, reversed_formals)
+                reversed_vals = Pair(args.first, reversed_vals)
+                formals = formals.rest
+                args = args.rest
+            child_frame = procedure.env.make_child_frame(reversed_formals, reversed_vals)
+            return eval_all(procedure.body, child_frame, False)  # eval immediately
     elif isinstance(procedure, MuProcedure):
         # BEGIN PROBLEM 11
         "*** YOUR CODE HERE ***"
@@ -106,7 +124,7 @@ def scheme_apply(procedure, args, env):
         assert False, "Unexpected procedure: {}".format(procedure)
 
 
-def eval_all(expressions, env):
+def eval_all(expressions, env, tail=True):
     """Evaluate each expression in the Scheme list EXPRESSIONS in
     Frame ENV (the current environment) and return the value of the last.
 
@@ -130,7 +148,7 @@ def eval_all(expressions, env):
     while expr_cloned.rest != nil:
         scheme_eval(expr_cloned.first, env)
         expr_cloned = expr_cloned.rest
-    return scheme_eval(expr_cloned.first, env, True)
+    return scheme_eval(expr_cloned.first, env, tail)
     # END PROBLEM 6
 
 
