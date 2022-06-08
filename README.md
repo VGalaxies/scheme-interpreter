@@ -19,6 +19,7 @@ python3 scheme.py tests.scm
 ```commandline
 python3 ok -q xxx -u
 python3 ok -q xxx
+python3 ok -q xxx --suite a --case b
 ```
 
 ## Note
@@ -190,3 +191,17 @@ tail context:
 
 - sub-expr of `if` form
 - last-expr of `eval_all`, note `cond` form call `eval_all`
+
+### Optional 1
+
+Implement `let-to-lambda`  in *questions.scm*.
+
+```
+(let ((a 1) (b 2)) (+ a b))
+;; Is equivalent to:
+((lambda (a b) (+ a b)) 1 2)
+```
+
+- make use of `append`
+- note the structure
+- recursion is everywhere

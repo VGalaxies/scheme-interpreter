@@ -23,7 +23,6 @@
 (define (merge inorder? list1 list2)
   ; BEGIN PROBLEM 16
   (cond
-    ((and (null? list1) (null? list2)) null)
     ((null? list1) list2)
     ((null? list2) list1)
     ((inorder? (car list1) (car list2))
@@ -47,40 +46,30 @@
 (define quoted? (check-special 'quote))
 (define let?    (check-special 'let))
 
+(define (zip s)
+  (list (map car s) (map cadr s)))
+
 ;; Converts all let special forms in EXPR into equivalent forms using lambda
 (define (let-to-lambda expr)
-  (cond ((atom? expr)
-         ; BEGIN PROBLEM 17
-         'replace-this-line
-         ; END PROBLEM 17
-         )
-        ((quoted? expr)
-         ; BEGIN PROBLEM 17
-         'replace-this-line
-         ; END PROBLEM 17
-         )
-        ((or (lambda? expr)
-             (define? expr))
+  (cond ((or (atom? expr) (quoted? expr)) expr)
+        ((or (lambda? expr) (define? expr))
          (let ((form   (car expr))
                (params (cadr expr))
                (body   (cddr expr)))
-           ; BEGIN PROBLEM 17
-           'replace-this-line
-           ; END PROBLEM 17
+           (append (list form (map let-to-lambda params))
+             (map let-to-lambda body))
            ))
         ((let? expr)
          (let ((values (cadr expr))
                (body   (cddr expr)))
-           ; BEGIN PROBLEM 17
-           'replace-this-line
-           ; END PROBLEM 17
+           (cons (append (cons 'lambda
+                           (list (map let-to-lambda (car (zip values)))))
+                   (map let-to-lambda body))
+             (map let-to-lambda (cadr (zip values))))
            ))
         (else
-         ; BEGIN PROBLEM 17
-         'replace-this-line
-         ; END PROBLEM 17
+         (map let-to-lambda expr)
          )))
-
 
 
 ;; Problem 21 (optional)
