@@ -8,6 +8,7 @@ https://nju-sicp.bitbucket.io/projs/proj04
 
 ```commandline
 python3 scheme.py
+python3 scheme.py tests.scm
 ```
 
 ## Test
@@ -175,11 +176,17 @@ NameError: name 'make_let_frame' is not defined
 
 ### Problem 15 and 16
 
-some simple Scheme procedure
+Implement some simple **Scheme** procedure in *questions.scm*.
+
+```commandline
+python3 editor
+```
 
 ### Problem 17
 
-optimize tail recursion
+Implement `optimize_tail_calls` and modify some `scheme_eval` calling.
 
-- `do_if_form`
-- `eval_all`
+tail context:
+
+- sub-expr of `if` form
+- last-expr of `eval_all`, note `cond` form call `eval_all`
