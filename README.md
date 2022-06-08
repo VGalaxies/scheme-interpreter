@@ -118,6 +118,8 @@ Implement `scheme_apply` LambdaProcedure.
 
 - new frame should be a child of the frame in which the lambda is defined
 - call `scheme_eval` with `env` to get `arg -> val`
+  - not need to evaluate arg, since will look up parent frame
+  - avoid evaluating arg, since arg may not be expr
 
 ### Problem 10
 
@@ -216,5 +218,4 @@ Implement `define-macro`.
   - evaluate operator, if `MacroProcedure`, then do not evaluate operands
   - call `scheme_apply` to get the target expr
 - modify `scheme_apply`
-  - if `MacroProcedure`, then do not evaluate `args`
   - remove `eval_all` tail context

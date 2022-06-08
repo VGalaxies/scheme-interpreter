@@ -83,29 +83,18 @@ def scheme_apply(procedure, args, env):
     elif isinstance(procedure, LambdaProcedure):
         # BEGIN PROBLEM 9
         "*** YOUR CODE HERE ***"
-        if not isinstance(procedure, MacroProcedure):
-            reversed_vals = nil
-            reversed_formals = nil
-            formals = Pair(procedure.formals.first, procedure.formals.rest)
-            for _ in range(len(formals)):
-                reversed_formals = Pair(formals.first, reversed_formals)
-                reversed_vals = Pair(scheme_eval(args.first, env), reversed_vals)
-                formals = formals.rest
-                args = args.rest
-            child_frame = procedure.env.make_child_frame(reversed_formals, reversed_vals)
-            return eval_all(procedure.body, child_frame)
+        reversed_vals = nil
+        reversed_formals = nil
+        formals = Pair(procedure.formals.first, procedure.formals.rest)
+        for _ in range(len(formals)):
+            reversed_formals = Pair(formals.first, reversed_formals)
+            reversed_vals = Pair(args.first, reversed_vals)
+            formals = formals.rest
+            args = args.rest
+        child_frame = procedure.env.make_child_frame(reversed_formals, reversed_vals)
+        return eval_all(procedure.body, child_frame,
+                        False if isinstance(procedure, MacroProcedure) else True)  # eval immediately
         # END PROBLEM 9
-        else:
-            reversed_vals = nil
-            reversed_formals = nil
-            formals = Pair(procedure.formals.first, procedure.formals.rest)
-            for _ in range(len(formals)):
-                reversed_formals = Pair(formals.first, reversed_formals)
-                reversed_vals = Pair(args.first, reversed_vals)
-                formals = formals.rest
-                args = args.rest
-            child_frame = procedure.env.make_child_frame(reversed_formals, reversed_vals)
-            return eval_all(procedure.body, child_frame, False)  # eval immediately
     elif isinstance(procedure, MuProcedure):
         # BEGIN PROBLEM 11
         "*** YOUR CODE HERE ***"
